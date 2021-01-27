@@ -1,6 +1,4 @@
-// function used for updating x-scale const upon click on axis label
 function xScale(csvData, chosenXAxis) {
-  // create scales
   let xLinearScale = d3.scaleLinear()
     .domain([d3.min(csvData, d => d[chosenXAxis]) * 0.9,
       d3.max(csvData, d => d[chosenXAxis]) * 1.1
@@ -10,9 +8,7 @@ function xScale(csvData, chosenXAxis) {
   return xLinearScale;
 }
 
-// function used for updating y-scale const upon click on axis label
 function yScale(csvData, chosenYAxis) {
-  // create scales
   let yLinearScale = d3.scaleLinear()
     .domain([d3.min(csvData, d => d[chosenYAxis]) - 1,
       d3.max(csvData, d => d[chosenYAxis]) + 1
@@ -22,7 +18,6 @@ function yScale(csvData, chosenYAxis) {
   return yLinearScale;
 }
 
-// function used for updating xAxis const upon click on axis label
 function renderXAxes(newXScale, xAxis) {
   let bottomAxis = d3.axisBottom(newXScale);
 
@@ -33,7 +28,6 @@ function renderXAxes(newXScale, xAxis) {
   return xAxis;
 }
 
-// function used for updating yAxis const upon click on axis label
 function renderYAxes(newYScale, yAxis) {
   let leftAxis = d3.axisLeft(newYScale);
 
@@ -44,8 +38,6 @@ function renderYAxes(newYScale, yAxis) {
   return yAxis;
 }
 
-// functions used for updating circles group with a transition to
-// new circles for both X and Y coordinates
 function renderXCircles(circlesGroup, newXScale, chosenXaxis) {
 
   circlesGroup.transition()
@@ -64,8 +56,6 @@ function renderYCircles(circlesGroup, newYScale, chosenYaxis) {
   return circlesGroup;
 }
 
-// functions used for updating circles text with a transition on
-// new circles for both X and Y coordinates
 function renderXText(circlesGroup, newXScale, chosenXaxis) {
 
   circlesGroup.transition()
@@ -84,13 +74,11 @@ function renderYText(circlesGroup, newYScale, chosenYaxis) {
   return circlesGroup;
 }
 
-// format number to USD currency
 let formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
 });
 
-// function used for updating circles group with new tooltip
 function updateToolTip(circlesGroup, chosenXAxis, chosenYAxis) {
 
   let xpercentsign = "";
@@ -132,18 +120,10 @@ function updateToolTip(circlesGroup, chosenXAxis, chosenYAxis) {
 
   circlesGroup.call(toolTip);
 
-  // mouseover event
   circlesGroup.on("mouseover", function(data) {
       toolTip.show(data, this);
-      // trying to highlight chosen circle
-      // circlesGroup.append("circle")
-      //   .attr("cx", d3.event.pageX)
-      //   .attr("cy", d3.event.pageY)
-      //   .attr("r", 15)
-      //   .attr("stroke", "black")
-      //   .attr("fill", "none");
+
   })
-    // onmouseout event
     .on("mouseout", function(data) {
         toolTip.hide(data, this);
     });
